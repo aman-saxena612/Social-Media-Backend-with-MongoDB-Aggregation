@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const User = require('../models/User');
 
-const secretKey = process.env.SECRET_KEY; // Replace with your actual secret key
+const secretKey = process.env.SECRET_KEY;
 
 exports.register = async (req, res) => {
     try {
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const maxAgeInMilliseconds = 1 * 24 * 60 * 60 * 1000; // 1 day in milliseconds
+    const maxAgeInMilliseconds = 1 * 24 * 60 * 60 * 1000;
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -39,8 +39,7 @@ exports.login = async (req, res) => {
         }
         const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1d' });
 
-        // Set token in a cookie
-        res.cookie('jwtToken', token, { httpOnly: true, maxAge: maxAgeInMilliseconds }); // Max age is in milliseconds (1 hour)
+        res.cookie('jwtToken', token, { httpOnly: true, maxAge: maxAgeInMilliseconds });
         // console.log("error here!");
         
         res.status(200).json({ message: 'Login successful' });

@@ -3,21 +3,21 @@ const { Schema, model } = mongoose;
 
 const postSchema = new Schema({
 
-  content: {
-     type: String,
+   content: {
+      type: String,
       required: true
-     },
+   },
 
-     createdAt :{
+   createdAt: {
       type: Date,
       default: Date.now
-     },
+   },
 
-  userId: {
-     type: Schema.Types.ObjectId, 
-     ref: 'User',
-   //   required: true
-     },
-}, {timestamps: true});
+   userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      //   required: true
+   },
+}, { timestamps: true });
 
 module.exports = model('Post', postSchema);
